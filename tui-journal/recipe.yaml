@@ -20,4 +20,4 @@ requirements:
 
 tests:
   - script:
-      - tjournal --help
+      - tjournal --help 

@@ -20,4 +20,4 @@ requirements:
 
 tests:
   - script:
-      - trip --help
+      - trip --help 

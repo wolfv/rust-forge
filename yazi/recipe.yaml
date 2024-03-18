@@ -20,4 +20,4 @@ requirements:
 
 tests:
   - script:
-      - yazi --help
+      - yazi --help 
