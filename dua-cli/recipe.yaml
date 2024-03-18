@@ -1,0 +1,23 @@
+context:
+  version: "2.29.0"
+
+package:
+  name: dua-cli
+  version: ${{ version }}
+  
+source:
+  url: https://github.com/Byron/dua-cli/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: af58bfc5146b296ced1ed711b0bbd21bce731a69fb6bea6622e6acfbe180a91a
+
+build:
+  script:
+    - cargo install --locked --root $PREFIX --path .
+    - rm $PREFIX/.crates.toml $PREFIX/.crates2.json
+
+requirements:
+  build:
+    - ${{ compiler("rust") }}
+
+tests:
+  - script:
+      - dua --help

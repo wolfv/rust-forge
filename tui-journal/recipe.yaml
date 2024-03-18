@@ -1,0 +1,23 @@
+context:
+  version: "0.8.2"
+
+package:
+  name: tui-journal
+  version: ${{ version }}
+  
+source:
+  url: https://github.com/AmmarAbouZor/tui-journal/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: 21ab1443299c751289bfcec3eea12cbc24fe40da0e9b294cbc9b37653946d80a
+
+build:
+  script:
+    - cargo install --locked --root $PREFIX --path .
+    - rm $PREFIX/.crates.toml $PREFIX/.crates2.json
+
+requirements:
+  build:
+    - ${{ compiler("rust") }}
+
+tests:
+  - script:
+      - tjournal --help

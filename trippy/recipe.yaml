@@ -1,0 +1,23 @@
+context:
+  version: "0.9.0"
+
+package:
+  name: trippy
+  version: ${{ version }}
+  
+source:
+  url: https://github.com/fujiapple852/trippy/archive/refs/tags/${{ version }}.tar.gz
+  sha256: bebd130c74ceacf4bc6b6f3aa92fa639e1904eb904c5135f53c45510370289ed
+
+build:
+  script:
+    - cargo install --locked --root $PREFIX --path .
+    - rm $PREFIX/.crates.toml $PREFIX/.crates2.json
+
+requirements:
+  build:
+    - ${{ compiler("rust") }}
+
+tests:
+  - script:
+      - trip --help

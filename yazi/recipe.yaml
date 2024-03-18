@@ -1,0 +1,23 @@
+context:
+  version: "0.2.4"
+
+package:
+  name: yazi
+  version: ${{ version }}
+  
+source:
+  url: https://github.com/sxyazi/yazi/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: ded7c95f1c80301ba3c9f64443b840ef3607ed3782330aa3140269f31788d864
+
+build:
+  script:
+    - cargo install --locked --root $PREFIX --path yazi-fm
+    - rm $PREFIX/.crates.toml $PREFIX/.crates2.json
+
+requirements:
+  build:
+    - ${{ compiler("rust") }}
+
+tests:
+  - script:
+      - yazi --help

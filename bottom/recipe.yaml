@@ -1,0 +1,23 @@
+context:
+  version: "0.9.6"
+
+package:
+  name: bottom
+  version: ${{ version }}
+  
+source:
+  url: https://github.com/ClementTsang/bottom/archive/refs/tags/${{ version }}.tar.gz
+  sha256: 202130e0d7c362d0d0cf211f6a13e31be3a02f13f998f88571e59a7735d60667
+
+build:
+  script:
+    - cargo install --locked --root $PREFIX --path .
+    - rm $PREFIX/.crates.toml $PREFIX/.crates2.json
+
+requirements:
+  build:
+    - ${{ compiler("rust") }}
+
+tests:
+  - script:
+      - btm --help

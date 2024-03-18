@@ -1,0 +1,23 @@
+context:
+  version: "1.16.1"
+
+package:
+  name: gping
+  version: ${{ version }}
+  
+source:
+  url: https://github.com/orf/gping/archive/refs/tags/gping-v${{ version }}.tar.gz
+  sha256: 557dad6e54b5dd23f88224ea7914776b7636672f237d9cbbea59972235ca89a8
+
+build:
+  script:
+    - cargo install --locked --root $PREFIX --path gping
+    - rm $PREFIX/.crates.toml $PREFIX/.crates2.json
+
+requirements:
+  build:
+    - ${{ compiler("rust") }}
+
+tests:
+  - script:
+      - gping --help
