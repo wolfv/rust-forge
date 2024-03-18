@@ -2,8 +2,7 @@ name: Selective Run
 
 on:
   push:
-    paths:
-      - 'subdirectories/**'
+  workflow_dispatch:
 
 jobs:
   build:
