@@ -1,0 +1,40 @@
+name: Selective Run
+
+on:
+  push:
+    paths:
+      - 'subdirectories/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: prefix-dev/setup-pixi@v0.5.1
+      with:
+        pixi-version: v0.16.1
+        cache: true
+        auth-host: prefix.dev
+        auth-token: ${{ secrets.PREFIX_API_KEY }}
+
+    - name: Add .pixi/envs/default to the $PATH
+      run: |
+        echo "$(pwd)/.pixi/envs/default/bin" >> $GITHUB_PATH
+
+    - name: Get changed subdirectories
+      id: changed-subdirectories
+      run: |
+        changed_dirs=$(git diff --name-only HEAD~1 HEAD | grep -oE 'subdirectories/[^/]+' | uniq)
+        echo "::set-output name=dirs::$changed_dirs"
+
+    - name: Run code in changed subdirectories
+      run: |
+        for dir in ${{ steps.changed-subdirectories.outputs.dirs }}; do
+          echo "Running code in $dir"
+          rattler-build build --recipe $dir/recipe.yaml
+        done
+
+    - name: Upload all packages
+      run:
+        rattler-build upload prefix -c rust-forge output/**/*.conda 
