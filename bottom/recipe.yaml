@@ -20,4 +20,4 @@ requirements:
 
 tests:
   - script:
-      - btm --help
+      - btm --help 

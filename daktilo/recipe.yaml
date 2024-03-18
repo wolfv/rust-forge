@@ -17,4 +17,4 @@ requirements:
 
 tests:
   - script:
-      - daktilo --help
+      - daktilo --help 
