@@ -5,9 +5,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
 
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+      fail-fast: false
+
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
       with:
@@ -20,16 +25,19 @@ jobs:
         auth-token: ${{ secrets.PREFIX_API_KEY }}
 
     - name: Add .pixi/envs/default to the $PATH
+      shell: bash
       run: |
         echo "$(pwd)/.pixi/envs/default/bin" >> $GITHUB_PATH
 
     - name: Get changed subdirectories
       id: changed-subdirectories
+      shell: bash
       run: |
         changed_dirs=$(git diff --name-only HEAD~1 HEAD | grep 'recipe.yaml' | grep -oE '^[^/]+' | uniq | tr '\n' ' ')
         echo "dirs=$changed_dirs" >> $GITHUB_OUTPUT
 
     - name: Run code in changed subdirectories
+      shell: bash
       run: |
         for dir in ${{ steps.changed-subdirectories.outputs.dirs }}; do
           echo "Running code in $dir"
@@ -37,6 +45,9 @@ jobs:
         done
 
     - name: Upload all packages
-      run:
-        rattler-build upload prefix -c rust-forge output/**/*.conda 
-
+      shell: bash
+      run: |
+        # ignore errors because we want to ignore duplicate packages
+        for file in output/**/*.conda; do
+          rattler-build upload prefix -c rust-forge "$file" || true
+        done
