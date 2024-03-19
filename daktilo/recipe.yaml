@@ -18,7 +18,10 @@ requirements:
       then: pkg-config
   host:
     - if: linux
-      then: alsa-lib
+      then:
+        - alsa-lib
+        - xorg-libxi
+        - xorg-libxtst
 
 tests:
   - script:

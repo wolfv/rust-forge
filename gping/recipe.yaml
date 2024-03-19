@@ -17,6 +17,8 @@ build:
 requirements:
   build:
     - ${{ compiler("rust") }}
+  host:
+    - ${{ "zlib" if linux }}
 
 tests:
   - script:

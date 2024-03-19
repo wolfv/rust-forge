@@ -17,7 +17,11 @@ build:
 requirements:
   build:
     - ${{ compiler("rust") }}
-
+  host:
+    - if: linux
+      then:
+        - zlib
+        - openssl
 tests:
   - script:
       - tjournal --help 
