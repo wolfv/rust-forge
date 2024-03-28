@@ -18,7 +18,7 @@ build:
         - rm $PREFIX/.crates.toml $PREFIX/.crates2.json
       else:
         - cargo install --locked --root %PREFIX% --path gping
-        - rm %PREFIX%/.crates.toml %PREFIX%/.crates2.json
+        - rm %PREFIX%/.crates.toml %PREFIX%/.crates2.json 
 
 requirements:
   build:

@@ -21,8 +21,6 @@ jobs:
       with:
         pixi-version: v0.16.1
         cache: true
-        auth-host: prefix.dev
-        auth-token: ${{ secrets.PREFIX_API_KEY }}
 
     - name: Add .pixi/envs/default to the $PATH
       shell: bash
