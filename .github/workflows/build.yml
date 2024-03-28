@@ -44,6 +44,8 @@ jobs:
 
     - name: Upload all packages
       shell: bash
+      env:
+        PREFIX_API_KEY: ${{ secrets.PREFIX_API_KEY }}
       run: |
         # ignore errors because we want to ignore duplicate packages
         for file in output/**/*.conda; do
