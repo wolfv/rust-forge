@@ -1,0 +1,28 @@
+context:
+  version: "1.38.0"
+
+package:
+  name: cargo-insta
+  version: ${{ version }}
+
+source:
+  url: https://github.com/mitsuhiko/insta/releases/download/${{ version }}/source.tar.gz
+  sha256: 521d7a686a7cd0635f76930bebc49afb0b1da0e0fd54214e88d4e1ed11e17517
+
+build:
+  script:
+    - if: unix
+      then:
+        - cargo install --locked --root $PREFIX --path cargo-insta
+        - rm $PREFIX/.crates.toml $PREFIX/.crates2.json
+      else:
+        - cargo install --locked --root %PREFIX% --path cargo-insta
+        - rm %PREFIX%/.crates.toml %PREFIX%/.crates2.json
+
+requirements:
+  build:
+    - ${{ compiler("rust") }}
+
+tests:
+  - script:
+      - cargo-insta --help
