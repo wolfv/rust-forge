@@ -27,20 +27,10 @@ jobs:
       run: |
         echo "$(pwd)/.pixi/envs/default/bin" >> $GITHUB_PATH
 
-    - name: Get changed subdirectories
-      id: changed-subdirectories
-      shell: bash
-      run: |
-        changed_dirs=$(git diff --name-only HEAD~1 HEAD | grep 'recipe.yaml' | grep -oE '^[^/]+' | uniq | tr '\n' ' ')
-        echo "dirs=$changed_dirs" >> $GITHUB_OUTPUT
-
     - name: Run code in changed subdirectories
       shell: bash
       run: |
-        for dir in ${{ steps.changed-subdirectories.outputs.dirs }}; do
-          echo "Running code in $dir"
-          rattler-build build --recipe $dir/recipe.yaml
-        done
+        rattler-build build --recipe-dir . --skip-existing -c conda-forge -c https://prefix.dev/rust-forge
 
     - name: Upload all packages
       shell: bash
