@@ -1,0 +1,29 @@
+
+context:
+  version: "1.25.1"
+
+package:
+  name: watchexec
+  version: ${{ version }}
+  
+source:
+  url: https://github.com/watchexec/watchexec/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: 9609163c14cd49ec651562838f38b88ed2d370e354af312ddc78c2be76c08d37
+
+build:
+  script:
+    - if: unix
+      then:
+        - cargo install --locked --root $PREFIX --path ./crates/cli/
+        - rm $PREFIX/.crates.toml $PREFIX/.crates2.json
+      else:
+        - cargo install --locked --root %PREFIX% --path ./crates/cli/
+        - rm %PREFIX%/.crates.toml %PREFIX%/.crates2.json
+
+requirements:
+  build:
+    - ${{ compiler("rust") }}
+
+tests:
+  - script:
+      - watchexec --help 
