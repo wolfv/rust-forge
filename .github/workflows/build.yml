@@ -30,7 +30,7 @@ jobs:
     - name: Run code in changed subdirectories
       shell: bash
       run: |
-        rattler-build build --recipe-dir . --skip-existing -c conda-forge -c https://prefix.dev/rust-forge
+        rattler-build build --recipe-dir . --skip-existing=all -c conda-forge -c https://prefix.dev/rust-forge
 
     - name: Upload all packages
       shell: bash
