@@ -13,10 +13,10 @@ build:
   script:
     - if: unix
       then:
-        - cargo install --locked --root $PREFIX --path cargo-insta
+        - cargo install --locked --root $PREFIX --path .
         - rm $PREFIX/.crates.toml $PREFIX/.crates2.json
       else:
-        - cargo install --locked --root %PREFIX% --path cargo-insta
+        - cargo install --locked --root %PREFIX% --path .
         - rm %PREFIX%/.crates.toml %PREFIX%/.crates2.json
 
 requirements:
