@@ -25,6 +25,7 @@ requirements:
     - ${{ compiler("c") }}
   host:
     - libgit2
+    - zlib
 
 tests:
   - script:
