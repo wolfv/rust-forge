@@ -9,7 +9,11 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - { target: linux-64,  os: ubuntu-20.04 }
+          - { target: win-64,    os: windows-latest }
+          - { target: osx-64,    os: macos-latest }
+          - { target: osx-arm64, os: macos-14 }
       fail-fast: false
 
     runs-on: ${{ matrix.os }}
@@ -29,8 +33,13 @@ jobs:
 
     - name: Run code in changed subdirectories
       shell: bash
+      env:
+        TARGET_PLATFORM: ${{ matrix.target }}
+
       run: |
-        rattler-build build --recipe-dir . --skip-existing=all -c conda-forge -c https://prefix.dev/rust-forge
+        rattler-build build --recipe-dir . \
+          --skip-existing=all --target-platform=$TARGET_PLATFORM \
+          -c conda-forge -c https://prefix.dev/rust-forge
 
     - name: Upload all packages
       shell: bash
