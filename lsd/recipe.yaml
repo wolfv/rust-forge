@@ -1,0 +1,31 @@
+context:
+  version: "1.1.2"
+
+package:
+  name: lsd
+  version: ${{ version }}
+  
+source:
+  url: https://github.com/lsd-rs/lsd/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: cd80dae9a8f6c4c2061f79084468ea6e04c372e932e3712a165119417960e14e
+
+build:
+  script:
+    - if: unix
+      then:
+        - cargo install --locked --root $PREFIX --path .
+        - rm $PREFIX/.crates.toml $PREFIX/.crates2.json
+      else:
+        - cargo install --locked --root %PREFIX% --path .
+        - rm %PREFIX%/.crates.toml %PREFIX%/.crates2.json
+
+requirements:
+  build:
+    - ${{ compiler("rust") }}
+    - ${{ compiler("c") }}
+  host:
+    - libgit2
+
+tests:
+  - script:
+      - lsd --help 
