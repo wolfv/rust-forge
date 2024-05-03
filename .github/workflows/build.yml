@@ -17,7 +17,8 @@ jobs:
         include:
           - { target: linux-64,  os: ubuntu-20.04 }
           - { target: win-64,    os: windows-latest }
-          - { target: osx-64,    os: macos-latest }
+          # force older macos-13 to get x86_64 runners
+          - { target: osx-64,    os: macos-13 }
           - { target: osx-arm64, os: macos-14 }
       fail-fast: false
 
