@@ -11,14 +11,13 @@ source:
 
 build:
   script:
-    - if: unix
-      then:
-        - cargo install --locked --root ${{ PREFIX }} --path . --no-track
-      else:
-        - cargo install --locked --root %PREFIX% --path . --no-track
+    interpreter: nu
+    content:
+      cargo install --locked --root $env.PREFIX --path . --no-track
 
 requirements:
   build:
+    - nushell
     - ${{ compiler("rust") }}
     - ${{ compiler("c") }}
   host:
