@@ -1,0 +1,26 @@
+context:
+  version: "3.4.1"
+
+package:
+  name: pueue
+  version: ${{ version }}
+  
+source:
+  url: https://crates.io/api/v1/crates/pueue/${{ version }}/download
+  sha256: 877e9d3a81ebc1ad5836228042b795a02d0f742ec83d6608ac930a54bf2c8fc6
+
+build:
+  script:
+    - if: unix
+      then:
+        - cargo install --locked --root $PREFIX --path . --no-track
+      else:
+        - cargo install --locked --root %PREFIX% --path . --no-track
+
+requirements:
+  build:
+    - ${{ compiler("rust") }}
+
+tests:
+  - script:
+      - pueue --help
