@@ -1,0 +1,22 @@
+context:
+  version: "1.7.0"
+
+package:
+  name: tealdeer
+  version: ${{ version }}
+  
+source:
+  url: https://github.com/tealdeer-rs/tealdeer/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: 940fe96a44571f395ac8349e5cba7ddb9231ce526bee07a9eb68f02c32f7da7b
+
+build:
+  script: cargo install --locked --root ${{ PREFIX }} --path . --no-track
+
+requirements:
+  build:
+    - ${{ compiler("rust") }}
+    - ${{ compiler("c") }}
+
+tests:
+  - script:
+      - tealdeer --help
