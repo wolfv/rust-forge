@@ -19,4 +19,4 @@ requirements:
 
 tests:
   - script:
-      - tealdeer --help
+      - tldr --help
