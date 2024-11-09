@@ -1,5 +1,4 @@
 name: Build all packages
-
 on:
   push:
     branches:
@@ -10,51 +9,48 @@ on:
       - main
 
 jobs:
-
   build:
     strategy:
       matrix:
         include:
-          - { target: linux-64,  os: ubuntu-20.04 }
-          - { target: win-64,    os: windows-latest }
+          - { target: linux-64, os: ubuntu-20.04 }
+          - { target: win-64, os: windows-latest }
           # force older macos-13 to get x86_64 runners
-          - { target: osx-64,    os: macos-13 }
+          - { target: osx-64, os: macos-13 }
           - { target: osx-arm64, os: macos-14 }
       fail-fast: false
 
+    name: ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 2
-    - uses: prefix-dev/setup-pixi@v0.8.1
-      with:
-        pixi-version: v0.34.0
-        cache: true
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
-    - name: Add .pixi/envs/default to the $PATH
-      shell: bash
-      run: |
-        echo "$(pwd)/.pixi/envs/default/bin" >> $GITHUB_PATH
+      - uses: prefix-dev/setup-pixi@v0.8.1
+        with:
+          pixi-version: v0.35.0
 
-    - name: Run code in changed subdirectories
-      shell: bash
-      env:
-        TARGET_PLATFORM: ${{ matrix.target }}
+      - name: Add .pixi/envs/default/bin to the $PATH
+        shell: bash
+        run: |
+          echo "$(pwd)/.pixi/envs/default/bin" >> $GITHUB_PATH
 
-      run: |
-        rattler-build build --recipe-dir . \
-          --skip-existing=all --target-platform=$TARGET_PLATFORM \
-          -c conda-forge -c https://prefix.dev/rust-forge
+      - name: Run code in changed subdirectories
+        shell: bash
+        run: |
+          rattler-build build --recipe-dir . \
+            --skip-existing=all --target-platform=${{ matrix.target }} \
+            -c conda-forge -c https://prefix.dev/rust-forge
 
-    - name: Upload all packages
-      shell: bash
-      # do not upload on PR
-      if: github.event_name == 'push'
-      env:
-        PREFIX_API_KEY: ${{ secrets.PREFIX_API_KEY }}
-      run: |
-        # ignore errors because we want to ignore duplicate packages
-        for file in output/**/*.conda; do
-          rattler-build upload prefix -c rust-forge "$file" || true
-        done
+      - name: Upload all packages
+        shell: bash
+        # do not upload on PR
+        if: github.event_name == 'push'
+        env:
+          PREFIX_API_KEY: ${{ secrets.PREFIX_API_KEY }}
+        run: |
+          # ignore errors because we want to ignore duplicate packages
+          for file in output/**/*.conda; do
+            rattler-build upload prefix -c rust-forge "$file" || true
+          done
