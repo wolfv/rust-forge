@@ -1,9 +1,12 @@
-package:
-  name: repgrep
+context:
   version: "0.15.0"
 
+package:
+  name: repgrep
+  version: ${{ version }}
+
 source:
-  url: https://github.com/acheronfail/repgrep/archive/refs/tags/0.15.0.tar.gz
+  url: https://github.com/acheronfail/repgrep/archive/refs/tags/${{ version }}.tar.gz
   sha256: 24e8b317cda9fb7df6fa7e596708145ca4052380d680fe712cc5871d25b7d485
 
 build:

@@ -1,5 +1,5 @@
 context:
-  version: "3.4.1"
+  version: "4.0.0-rc.1"
 
 package:
   name: pueue
@@ -7,7 +7,7 @@ package:
   
 source:
   url: https://github.com/Nukesor/pueue/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 868710de128db49e0a0c4ddee127dfc0e19b20cbdfd4a9d53d5ed792c5538244
+  sha256: 4005cdb038b0fe84cf25b46551920b14cedcbea265b6dac068b5ea4261ab4e2d
 
 build:
   script: cargo install --locked --root ${{ PREFIX }} --path ./pueue --no-track

@@ -6,7 +6,18 @@ authors = ["Wolf Vollprecht <w.vollprecht@gmail.com>"]
 channels = ["conda-forge"]
 platforms = ["osx-arm64", "linux-64", "win-64", "osx-64"]
 
-[tasks]
+
 
 [dependencies]
-rattler-build = ">=0.15,<1"
+rattler-build = ">=0.31.1,<0.32"
+
+[feature.update-versions.dependencies]
+python = "3.12.*"
+requests = ">=2.32.3,<3"
+pyyaml = ">=6.0.2,<7"
+
+[feature.update-versions.tasks]
+update-versions = "python .scripts/update-versions.py"
+
+[environments]
+update-versions = ["update-versions"]

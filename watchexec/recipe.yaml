@@ -1,6 +1,5 @@
-
 context:
-  version: "1.25.1"
+  version: "2.2.0"
 
 package:
   name: watchexec
@@ -8,7 +7,7 @@ package:
   
 source:
   url: https://github.com/watchexec/watchexec/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 9609163c14cd49ec651562838f38b88ed2d370e354af312ddc78c2be76c08d37
+  sha256: 372def49d02a53864ede5fd821feb6f8de96bbbde8a94dbcd1b77aeed01d4a7b
 
 build:
   script: cargo install --locked --root ${{ PREFIX }} --path ./crates/cli/ --no-track
@@ -19,4 +18,4 @@ requirements:
 
 tests:
   - script:
-      - watchexec --help 
+      - watchexec --help
