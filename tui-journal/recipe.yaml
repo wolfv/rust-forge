@@ -1,5 +1,5 @@
 context:
-  version: "0.13.0"
+  version: "0.8.2"
 
 package:
   name: tui-journal
@@ -7,7 +7,7 @@ package:
   
 source:
   url: https://github.com/AmmarAbouZor/tui-journal/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 7f5e2b0b1b1a227cf9154c1f4749a0a645fc18a6cfa9750872b0b45400b1a0a6
+  sha256: 21ab1443299c751289bfcec3eea12cbc24fe40da0e9b294cbc9b37653946d80a
 
 build:
   script: cargo install --locked --root ${{ PREFIX }} --path . --no-track
@@ -22,4 +22,4 @@ requirements:
         - openssl
 tests:
   - script:
-      - tjournal --help
+      - tjournal --help 

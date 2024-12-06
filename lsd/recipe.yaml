@@ -1,5 +1,5 @@
 context:
-  version: "1.1.5"
+  version: "1.1.2"
 
 package:
   name: lsd
@@ -7,7 +7,7 @@ package:
   
 source:
   url: https://github.com/lsd-rs/lsd/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 120935c7e98f9b64488fde39987154a6a5b2236cb65ae847917012adf5e122d1
+  sha256: cd80dae9a8f6c4c2061f79084468ea6e04c372e932e3712a165119417960e14e
 
 build:
   script: cargo install --locked --root ${{ PREFIX }} --path . --no-track
@@ -22,4 +22,4 @@ requirements:
 
 tests:
   - script:
-      - lsd --help
+      - lsd --help 

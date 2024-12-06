@@ -1,5 +1,5 @@
 context:
-  version: "0.1.13"
+  version: "0.1.9"
 
 package:
   name: tokio-console
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/tokio-rs/console/archive/refs/tags/tokio-console-v${{ version }}.tar.gz
-  sha256: 562a45df9e4c2fafede3e265da7f96ba0f3f3891a3025be55ca064f2239a2203
+  sha256: 4c54b486224d8ef97c113f2ffa3dc24ea6c5c7afe1784655fa5d3e9aa1242abb
 
 build:
   script: cargo install --locked --root ${{ PREFIX }} --path tokio-console --no-track

@@ -1,13 +1,10 @@
-context:
-  version: "0.6.0"
-
 package:
   name: daktilo
-  version: ${{ version }}
+  version: "0.5.0"
 
 source:
-  url: https://github.com/orhun/daktilo/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 594987ad0697a29e3d0dc25b220e5680cfaecedf2175fd6c17ba827fc7bc2978
+  url: https://github.com/orhun/daktilo/archive/refs/tags/v0.5.0.tar.gz
+  sha256: 55aead933dfe9176bc6f55f397bfe05f5eb97ef0f2b06e6904e4227f3e715b70
 
 build:
   script: cargo install --locked --root ${{ PREFIX }} --path . --no-track
@@ -26,4 +23,4 @@ requirements:
 
 tests:
   - script:
-      - daktilo --help
+      - daktilo --help 

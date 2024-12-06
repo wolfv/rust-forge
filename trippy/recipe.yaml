@@ -1,5 +1,5 @@
 context:
-  version: "0.12.0"
+  version: "0.9.0"
 
 package:
   name: trippy
@@ -7,7 +7,7 @@ package:
   
 source:
   url: https://github.com/fujiapple852/trippy/archive/refs/tags/${{ version }}.tar.gz
-  sha256: 4baf5e9f4d4490148ca739af6dbf5234c79dc5f8882690575ade29ce7f9b60e8
+  sha256: bebd130c74ceacf4bc6b6f3aa92fa639e1904eb904c5135f53c45510370289ed
 
 build:
   script: cargo install --locked --root ${{ PREFIX }} --path . --no-track

@@ -49,4 +49,6 @@ jobs:
         if: github.event_name == 'push'
         run: |
           # uses trusted publishers for the upload
-          rattler-build upload prefix -c rust-forge "$file"
+          for file in output/**/*.conda; do
+            rattler-build upload prefix -c rust-forge "$file"
+          done
