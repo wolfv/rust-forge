@@ -7,12 +7,7 @@ source:
   sha256: 21004272ffacbe19b5e2b6c521a021eb55abd24e96599fc5049c650abb708af2
 
 build:
-  script:
-    - if: unix
-      then:
-        - cargo install --locked --root $PREFIX --path . --no-track
-      else:
-        - cargo install --locked --root %PREFIX% --path . --no-track
+  script: cargo install --locked --root %PREFIX% --path cargo-insta --no-track
 
 requirements:
   build:

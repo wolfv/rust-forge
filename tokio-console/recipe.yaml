@@ -10,12 +10,7 @@ source:
   sha256: 4c54b486224d8ef97c113f2ffa3dc24ea6c5c7afe1784655fa5d3e9aa1242abb
 
 build:
-  script:
-    - if: unix
-      then:
-        - cargo install --locked --root $PREFIX --path tokio-console --no-track
-      else:
-        - cargo install --locked --root %PREFIX% --path tokio-console --no-track
+  script: cargo install --locked --root ${{ PREFIX }} --path tokio-console --no-track
 
 requirements:
   build:

@@ -10,14 +10,10 @@ source:
   sha256: cd80dae9a8f6c4c2061f79084468ea6e04c372e932e3712a165119417960e14e
 
 build:
-  script:
-    interpreter: nu
-    content:
-      cargo install --locked --root $env.PREFIX --path . --no-track
+  script: cargo install --locked --root ${{ PREFIX }} --path . --no-track
 
 requirements:
   build:
-    - nushell
     - ${{ compiler("rust") }}
     - ${{ compiler("c") }}
   host:

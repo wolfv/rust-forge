@@ -11,12 +11,7 @@ source:
   sha256: 9609163c14cd49ec651562838f38b88ed2d370e354af312ddc78c2be76c08d37
 
 build:
-  script:
-    - if: unix
-      then:
-        - cargo install --locked --root $PREFIX --path ./crates/cli/ --no-track
-      else:
-        - cargo install --locked --root %PREFIX% --path ./crates/cli/ --no-track
+  script: cargo install --locked --root ${{ PREFIX }} --path ./crates/cli/ --no-track
 
 requirements:
   build:

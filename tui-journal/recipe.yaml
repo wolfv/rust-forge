@@ -10,12 +10,7 @@ source:
   sha256: 21ab1443299c751289bfcec3eea12cbc24fe40da0e9b294cbc9b37653946d80a
 
 build:
-  script:
-    - if: unix
-      then:
-        - cargo install --locked --root $PREFIX --path . --no-track
-      else:
-        - cargo install --locked --root %PREFIX% --path . --no-track
+  script: cargo install --locked --root ${{ PREFIX }} --path . --no-track
 
 requirements:
   build:
