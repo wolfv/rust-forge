@@ -1,4 +1,5 @@
 import os
+import sys
 import yaml
 import requests
 from pathlib import Path
@@ -96,6 +97,11 @@ def update_recipe(recipe_path):
 
 def main():
     recipe_dir = Path('.')
+
+    # take first arg from cli and use as recipe_dir
+    if len(sys.argv) > 1:
+        recipe_dir = Path(sys.argv[1])
+
     for recipe_file in recipe_dir.glob('**/recipe.yaml'):
         try:
             update_recipe(recipe_file)
