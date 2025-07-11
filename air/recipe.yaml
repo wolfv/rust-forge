@@ -10,8 +10,11 @@ source:
   sha256: f33fc7aae6829f8471ca3b9144b0a314137393dc5423e10fa313a43278ffc6eb
 
 build:
-  script: |
-    cargo install --path crates/air --root ${{ PREFIX }} --no-track
+  script:
+    - if: win
+      then:
+        - set CARGO_HOME=C:\cargo
+    - cargo install --path crates/air --root ${{ PREFIX }} --no-track
   number: 0
 
 requirements:
