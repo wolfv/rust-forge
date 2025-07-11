@@ -1,0 +1,47 @@
+context:
+  version: "0.7.0"
+
+package:
+  name: air
+  version: ${{ version }}
+
+source:
+  url: https://github.com/posit-dev/air/archive/refs/tags/${{ version }}.tar.gz
+  sha256: f33fc7aae6829f8471ca3b9144b0a314137393dc5423e10fa313a43278ffc6eb
+
+build:
+  script: |
+    cargo install --path crates/air --root $PREFIX --no-track
+  number: 0
+
+requirements:
+  build:
+    - ${{ compiler('rust') }}
+
+tests:
+  - script: |
+      # Test version output
+      air --version | grep "air ${{ version }}"
+
+      # Create test R file
+      cat > test.R << 'EOF'
+      # Simple R code for testing
+      x<-1+2
+      y <- 3 + 4
+      print(x+y)
+      EOF
+
+      # Format the R file
+      air format test.R
+
+      # Check that formatting worked
+      grep "x <- 1 + 2" test.R
+      grep "y <- 3 + 4" test.R
+
+about:
+  homepage: https://github.com/posit-dev/air
+  license: MIT
+  summary: Fast and opinionated formatter for R code
+  description: |
+    Air is a fast and opinionated formatter for R code that helps maintain
+    consistent code style and formatting across R projects.
