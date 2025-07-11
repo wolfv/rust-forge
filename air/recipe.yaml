@@ -11,7 +11,7 @@ source:
 
 build:
   script: |
-    cargo install --path crates/air --root $PREFIX --no-track
+    cargo install --path crates/air --root ${{ PREFIX }} --no-track
   number: 0
 
 requirements:
